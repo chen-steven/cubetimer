@@ -1,15 +1,14 @@
 class SessionModel {
-    constructor() {
+
+    constructor(authentication) {
         this.solveTimes = [];
         this.scrambles = [];
         this.puzzle = "3x3";
         this.numSolves = 0;
         this.scramble = '';
-        this.signedIn = false;
-
+        this.authentication = authentication;
     }
     getScramble() {
-        
         this.scramble = "R U R' U' L";
         return this.scramble;
     }
@@ -18,12 +17,18 @@ class SessionModel {
         this.solveTimes.push(time);
         this.solveTimes.push(this.scramble);
         this.numSolves++;
-
-        if (this.signedIn) {
-            //post to user times
-            //post scramble
-            //post date
+        console.log(this.authentication.currentUser);
+        if (this.authentication.currentUser) {
+            console.log("logged in...posting solve")
+            db.collection("users").doc(this.authentication.currentUser.uid)
+            .get()
+            .then(doc =>{
+                    let times = doc.data()['solveTimes'];
+                    times.push(time);
+                    db.collection("users").doc(auth.currentUser.uid).update({solveTimes : times});
+                });
         } else {
+            console.log("logged out..get a fucking account man");
             //post to global times
             //post scramble
             //post date

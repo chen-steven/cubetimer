@@ -1,0 +1,59 @@
+[debug] [2019-12-27T23:01:40.195Z] ----------------------------------------------------------------------
+[debug] [2019-12-27T23:01:40.200Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2019-12-27T23:01:40.201Z] CLI Version:   7.6.2
+[debug] [2019-12-27T23:01:40.201Z] Platform:      darwin
+[debug] [2019-12-27T23:01:40.201Z] Node Version:  v8.12.0
+[debug] [2019-12-27T23:01:40.202Z] Time:          Fri Dec 27 2019 18:01:40 GMT-0500 (EST)
+[debug] [2019-12-27T23:01:40.203Z] ----------------------------------------------------------------------
+[debug] [2019-12-27T23:01:40.203Z] 
+[debug] [2019-12-27T23:01:40.251Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-27T23:01:40.252Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/Mariusz/Documents/codingProjects/main/cubetimer
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2019-12-27T23:01:53.251Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-12-27T23:01:53.252Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-12-27T23:01:53.486Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-27T23:01:53.513Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects?pageSize=100  
+ 
+[debug] [2019-12-27T23:01:53.989Z] <<< HTTP RESPONSE 200
+[info] i  Using project cubetimer-35c5f (cubetimer)
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2019-12-27T23:02:07.153Z] TypeError: Cannot read property 'setRawMode' of null
+    at ReadStream.setRawMode (tty.js:57:16)
+    at Interface._setRawMode (readline.js:241:16)
+    at Interface.close (readline.js:365:10)
+    at ReadStream.ontermend (readline.js:154:10)
+    at emitNone (events.js:111:20)
+    at ReadStream.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-12-27T23:02:07.156Z] Error: write EIO
+    at WriteWrap.afterWrite [as oncomplete] (net.js:868:14)
+[error] 
+[error] Error: An unexpected error has occurred.
