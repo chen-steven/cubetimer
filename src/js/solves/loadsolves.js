@@ -7,6 +7,7 @@ function populateSolveList() {
         }
         console.log(times);
     });
+    db.collection('users').doc(auth.currentUser.uid).collection("solves")
 }
 
 function renderSolveEntry(solve, index) {

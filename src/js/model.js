@@ -20,14 +20,12 @@ class SessionModel {
         console.log(this.authentication.currentUser);
         if (this.authentication.currentUser) {
             console.log("logged in...posting solve")
-            db.collection("users").doc(this.authentication.currentUser.uid)
-            .get()
-            .then(doc =>{
-                    let times = doc.data()['solveTimes'];
-                    let adding = {cube: this.puzzle,
-                                  time: time}
-                    times.push(adding);
-                    db.collection("users").doc(auth.currentUser.uid).update({solveTimes : times});
+            let timeStamp = Date.now()
+            db.collection("users").doc(this.authentication.currentUser.uid).collection("solves")
+                .doc(timeStamp.toString(10)).set({
+                    cube : this.puzzle,
+                    time : time,
+                    timeStamp: timeStamp
                 });
         } else {
             console.log("logged out..get a fucking account man");
@@ -38,7 +36,6 @@ class SessionModel {
         }
 
     }
-
     getAverage() {
         let sum = 0; 
         for (let i = 0; i<this.solveTimes.length; i++) {
@@ -51,8 +48,5 @@ class SessionModel {
         this.numSolves = 0;
         //clear solveTimes list
     }
-
-
-
 
 }
