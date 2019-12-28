@@ -26,7 +26,8 @@ class SessionModel {
                 .doc(timeStamp.toString(10)).set({
                     cube : this.puzzle,
                     time : time,
-                    timeStamp: timeStamp
+                    timeStamp: timeStamp,
+                    scramble: this.scramble
                 });
         } else {
             console.log("logged out..get a fucking account man");
