@@ -28,9 +28,6 @@ $(function() {
     model = new SessionModel(auth);
     stopwatch = new Stopwatch();
 
-
-
-
     $("#signup-button").on('click',event => {
         console.log("clicked");
         $("#modal-signup").modal('show');
