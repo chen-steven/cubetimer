@@ -28,6 +28,11 @@ $(function() {
     model = new SessionModel(auth);
     stopwatch = new Stopwatch();
 
+    $(".cube-types").on('click',event =>{
+        cubeType = event.target.textContent.trim();
+        model.puzzle = cubeType;
+        console.log(model.puzzle);
+    });
     $("#signup-button").on('click',event => {
         console.log("clicked");
         $("#modal-signup").modal('show');

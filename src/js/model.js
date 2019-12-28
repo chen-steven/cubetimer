@@ -24,7 +24,9 @@ class SessionModel {
             .get()
             .then(doc =>{
                     let times = doc.data()['solveTimes'];
-                    times.push(time);
+                    let adding = {cube: this.puzzle,
+                                  time: time}
+                    times.push(adding);
                     db.collection("users").doc(auth.currentUser.uid).update({solveTimes : times});
                 });
         } else {
