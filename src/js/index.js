@@ -28,6 +28,11 @@ $(function() {
     model = new SessionModel(auth);
     stopwatch = new Stopwatch();
 
+    $(".pick-table").on('click',event =>{
+        console.log("clicked" + event.target.textContent);
+        let filter = event.target.textContent;
+        populateSolveList(filter);
+    });
     $(".cube-types").on('click',event =>{
         cubeType = event.target.textContent.trim();
         model.puzzle = cubeType;
@@ -115,7 +120,7 @@ function userUpdate(user) {
                 $("#nav-name").text("Welcome, " + currentName);
             });
         
-        populateSolveList();
+        populateSolveList("All");
 
         
     } else{

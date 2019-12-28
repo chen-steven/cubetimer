@@ -1,13 +1,23 @@
-function populateSolveList() {
-
-    db.collection('users').doc(auth.currentUser.uid).get().then( (doc) => {
-        let times = doc.data()['solveTimes'];
-        for (let i = 0; i<times.length; i++) {
-            $('#solve-history').append(renderSolveEntry(times[i], i));
-        }
-        console.log(times);
-    });
-    db.collection('users').doc(auth.currentUser.uid).collection("solves")
+function populateSolveList(specifier) {
+    $("#solve-history").empty();
+    console.log("populating: " + specifier)
+    let times;
+    let solveCollection = db.collection('users').doc(auth.currentUser.uid).collection('solves')
+    if(specifier === 'All' || specifier === ""){
+        times = solveCollection.get();
+    } else{
+        console.log(specifier);
+        times = solveCollection.where("cube","==",specifier).get();
+    }
+    times.then(r => {
+        console.log("forEach");
+        let i = 0;
+        r.forEach(doc => {
+            let entry = doc.data();
+            $('#solve-history').append(renderSolveEntry(entry, i));
+            i++;
+        });
+    }); 
 }
 
 function renderSolveEntry(solve, index) {
