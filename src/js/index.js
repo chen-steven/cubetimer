@@ -51,7 +51,12 @@ $(function() {
         $("#session-modal").modal('show');
     });
 
-
+    $('#session-submit').on('click',e =>{
+        let newSessionName = $('#session-name').val();
+        model.createSession(newSessionName);
+        console.log(newSessionName);
+        
+    });
     $("#signup-submit").on('click', e => {
         //e.preventDefault();
         console.log("submitted");
