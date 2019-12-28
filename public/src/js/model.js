@@ -38,7 +38,7 @@ class SessionModel {
         }
 
     }
-    deleteSolve(solveID) { //solve id is Date.now()
+    deleteSolve(solveID) { //solve id is Date.now() as a string
         if (auth.currentUser) {
             db.collection("users").doc(auth.currentUser.uid).collection("solves").doc(solveID).delete();
         }
