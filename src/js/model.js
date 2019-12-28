@@ -9,7 +9,6 @@ class SessionModel {
         this.authentication = authentication;
     }
     getScramble() {
-        console.log(generateScramble(3, 20));
         this.scramble = "R U R' U' L";
         return this.scramble;
     }

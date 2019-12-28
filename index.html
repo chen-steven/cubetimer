@@ -92,12 +92,7 @@
                                           <h2>5x5</h2>
                                        </div>
                                     </div>
-                                 </div>
-                                 
-                                
-                                 
-                                
-                                 
+                                 </div>   
                     </div>
                 </div>
 
@@ -109,7 +104,7 @@
                         <h1 class="rounded-circle" id="timer">00:00.000</h1>
                         <p class="text-muted">Press the spacebar to start the stopwatch</p> 
                     </div>
-                    <div class="col ">
+                    <div class="col">
                         <div>
                             <div class="">
                                 <h2>Current Solves</h2>
@@ -120,12 +115,12 @@
                                 </ol>
                             </div>
                             <br>
-                            <div>
-                                <button id="view-stats" class="btn btn-primary">View Statistics</button>
-                                <button id="session-button" class="btn btn-secondary">New Session</button>
-                            </div>
+                            
                         </div>
-                        
+                        <div>
+                          <button id="view-stats" class="btn btn-primary">View Statistics</button>
+                          <button id="session-button" class="btn btn-secondary">New Session</button>
+                      </div>
                     </div>
                         
                 </div>
@@ -221,13 +216,54 @@
                       </div>
                     </div>
 
+        <hr>
+        <section>
+          <div class="container">
+            <h1>Solves</h1>
+            <ul class="nav justify-content-center">
+              <li class="">
+                <p class="nav-link" href="">All</p>
+              </li>
+              <li class="">
+                <p class="nav-link" href="">Sessions</p>
+              </li>
+              <li class="nav-item">
+                <p class="nav-link" href="">3x3</p>
+              </li>
+              <li class="nav-item">
+                <p class="nav-link" href="">4x4</p>
+              </li>
+              <li class="nav-item">
+                <p class="nav-link" href="">5x5</p>
+              </li>
+            </ul>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Scramble</th>
+                </tr>
+              </thead>
+              <tbody id="solve-history">
+                
+              </tbody>
+            </table>
+            
+          </div>
+
+        </section>
+
         <script src="./node_modules/jquery/dist/jquery.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         
         <script src="src/js/stopwatch.js"></script>
         <script src="src/js/model.js"></script>
+        <script src="src/js/solves/loadsolves.js"></script>
         <script type="text/javascript" src="./src/js/index.js"></script>
+        
         
     </body>
     

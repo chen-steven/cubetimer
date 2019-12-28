@@ -24,7 +24,7 @@ $(function() {
         console.log(user);
         userUpdate(user);
     });
-    userUpdate(auth.currentUser);
+    //userUpdate(auth.currentUser);
     model = new SessionModel(auth);
     stopwatch = new Stopwatch();
 
@@ -67,6 +67,7 @@ $(function() {
         auth.createUserWithEmailAndPassword(email,password).then(cred =>{
             console.log(cred.user);
             return db.collection('users').doc(cred.user.uid).set({
+                uid: cred.user.uid,
                 name: name,
                 email: email,
                 solveTimes: []
@@ -86,9 +87,16 @@ $(function() {
         $('#modal-login').modal("hide");
         $('#login-form')[0].reset();
     });
+
+   $(document).on('keypress', function(e) {
+       if (e.which==32) {
+           e.preventDefault();
+       }
+   });
     
-    $(document).on('keypress',function(e) {
+    $(document).on('keyup',function(e) {
         if(e.which == 32) {
+            e.preventDefault();
             console.log("HI");
             if (stopwatch.running) {
                 stopwatch.stop();
@@ -114,10 +122,16 @@ function userUpdate(user) {
                 let currentName = doc.data()['name'];
                 $("#nav-name").text("Welcome, " + currentName);
             });
+        
+        populateSolveList();
+
+        
     } else{
         $(".logged-in").addClass('d-none');
         $(".logged-out").removeClass('d-none');
     }
+
+
 }
 
 function showStatistics(event) {

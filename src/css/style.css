@@ -69,3 +69,29 @@ div.scroll-area {
     overflow-y: scroll;
     border-radius: 10px; 
 }
+
+#session-button-panel {
+    max-height: 340px;
+    height: 340px;
+}
+
+.selected-cube {
+    background-color: #4f5b60;
+}
+
+td.scramble {
+    /* overflow-x: scroll; */
+    max-width: 10px; 
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 40px;
+    margin-right: 40px;
+    border-style: inset;
+    border-width: 1px;
+    
+
+}
