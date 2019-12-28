@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Cube Timer</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"> 
+        <link rel="stylesheet" href="src/css/style.css">
+        
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+
+        <script src="./node_modules/sr-scrambler/dist/index.js"></script> 
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <i class="fa fa-cubes"></i>
+                Cube Timer</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="./index.html">Timer <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./solves.html">Solves</a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Algorithms
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">F2L</a>
+                    <a class="dropdown-item" href="#">OLL</a>
+                    <a class="dropdown-item" href="#">PLL</a>
+                    </div>
+                </li>
+                </ul>
+
+                <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                          <a id="signup-button" class="logged-out nav-link" href="#"><span class="fa fa-user"></span> Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                          <a id="login-button" class="logged-out nav-link" href="#"><i class="fa fa-sign-in-alt"></i> Login</a>
+                        </li>
+                        <li class="nav-item">
+                          <a id="logout-button" class="logged-in nav-link" href="#"><i class="fa fa-sign-in-alt"></i> Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="nav-name" class="logged-in nav-link disabled" href="#">Welcome, </a>
+                        </li>
+                      </ul>
+            </div>
+        </nav>
+
+        <section> 
+                <div class="container">
+                    <h2>Select a puzzle</h2>
+                    <div class="row">
+                            <div id="4x4-button" class="stretched-link cube-types col-md-4 mb-5">
+                                    <div class="card bg-primary bg-gradient mb-3 text-center">
+                                       <div class="card-body">
+                                          <h3>3x3</h3>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div id="4x4-button" class="stretched-link cube-types col-md-4 mb-5">
+                                    <div class="card bg-secondary bg-gradient mb-3 text-center">
+                                       <div class="card-body">
+                                          <h2>4x4</h2>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 
+                                 <div id="5x5-button" class="stretched-link cube-types col-md-4 mb-5">
+                                    <div class="card bg-success bg-gradient mb-3 text-center">
+                                       <div class="card-body">
+                                          <h2>5x5</h2>
+                                       </div>
+                                    </div>
+                                 </div>   
+                    </div>
+                </div>
+
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h2 id="scramble">R U' R</h2>
+                        <h1 class="rounded-circle" id="timer">00:00.000</h1>
+                        <p class="text-muted">Press the spacebar to start the stopwatch</p>
+                        <h1 id="timer-instructions" class="rounded-circle">test</h1>
+                    </div>
+                    <div class="col">
+                        <div>
+                            <div class="">
+                                <h2>Current Solves</h2>
+                            </div>
+                            <div  class="scroll-area border bg-light">
+                                <ol id="current-solves">
+
+                                </ol>
+                            </div>
+                            <br>
+                            
+                        </div>
+                        <div>
+                          <button id="view-stats" class="btn btn-primary">View Statistics</button>
+                          <button class="btn btn-secondary">New Session</button>
+                      </div>
+                    </div>
+                        
+                </div>
+                
+            
+            </div>
+        </section>
+
+        <div class="modal fade" id="modal-signup" style="display:none;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Create an Account</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form id = "signup-form">
+                        <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Email:</label>
+                          <input type="email"class="form-control" id="signup-email">
+                        </div>
+                        <div class="form-group">
+                          <label for="message-text" class="col-form-label">Password:</label>
+                          <input type="password" class="form-control" id="signup-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" id="signup-name">
+                        </div>
+                      </form>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id = "signup-submit" type="submit" class="btn btn-primary">Sign-up</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="modal fade" id="modal-login" style="display:none;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="login-form">
+                            <div class="form-group">
+                              <label for="recipient-name" class="col-form-label">Email:</label>
+                              <input type="email" class="form-control" id="login-email">
+                            </div>
+                            <div class="form-group">
+                              <label for="message-text" class="col-form-label">Password:</label>
+                              <input type="password" class="form-control" id="login-password">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button id="login-submit" type="button" class="btn btn-primary">Login</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal fade" id="session-modal" style="display:none;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create an new Session</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form id = "session-form">
+                              <div class="form-group">
+                                  <label for="message-text" class="col-form-label">Session Name</label>
+                                  <input type="text" class="form-control" id="session-name">
+                              </div>
+                            </form>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button id = "session-submit" type="submit" class="btn btn-primary">Sign-up</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+        <hr>
+        <section>
+          <div class="container">
+            <h1>Solves</h1>
+            <ul class="nav justify-content-center">
+              <li class="nav-item">
+                <p class="pick-table nav-link" href="#">All</p>
+              </li>
+              <li class="nav-item">
+                <p class="pick-table nav-link" href="#">3x3</p>
+              </li>
+              <li class="nav-item">
+                <p class="pick-table nav-link" href="#">4x4</p>
+              </li>
+              <li class="nav-item">
+                <p class="pick-table nav-link" href="#">5x5</p>
+              </li>
+            </ul>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Scramble</th>
+                </tr>
+              </thead>
+              <tbody id="solve-history">
+                
+              </tbody>
+            </table>
+            
+          </div>
+
+        </section>
+
+        <script src="./node_modules/jquery/dist/jquery.js"></script>
+        <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <script src="src/js/stopwatch.js"></script>
+        <script src="src/js/model.js"></script>
+        <script src="src/js/solves/loadsolves.js"></script>
+        <script type="text/javascript" src="./src/js/index.js"></script>
+        
+        
+    </body>
+    
+</html>
