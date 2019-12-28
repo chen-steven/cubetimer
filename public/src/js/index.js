@@ -52,6 +52,13 @@ $(function() {
         $("#modal-login").modal('show');
     });
 
+    $("#current-solves").on('click', '.delete-solve-button', null, function(e) {
+        console.log(e.target);
+        console.log($(e.target).closest('li').attr('id'));
+        let solveID = $(e.target).closest('li').attr('id').substring(3);
+        model.deleteSolve(solveID);
+    });
+
 
 
     $("#signup-submit").on('click', e => {
@@ -145,14 +152,18 @@ function newScramble() {
 }
 
 function addTime(time) {
-    
-    $('#current-solves').append(renderSolve(time));
     model.addSolve(time);
+    let solveID = model.pastSolveID;
+    $('#current-solves').append(renderSolve(time, solveID));
+    
 
 }
-function renderSolve(time) {
-    return `<li> 
-        <p>${$('#timer').text()} <span class="text-secondary">${$('#scramble').text()}</span></p>
+function renderSolve(time, solveID) {
+    return `<li id="${"li-"+solveID}"> 
+        
+        <p>${$('#timer').text()} <span class="text-secondary">${$('#scramble').text()} </span> 
+        <a class="delete-solve-button" style="float:right; margin-right: 10px;">X</a>
+        </p>
         
     
     </li>`;

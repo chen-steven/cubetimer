@@ -95,3 +95,11 @@ hr {
     
 
 }
+
+.timer-waiting {
+    color: red;
+}
+
+.timer-ready {
+    color: greenyellow;
+}

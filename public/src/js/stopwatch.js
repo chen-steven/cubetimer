@@ -18,13 +18,17 @@ class Stopwatch {
             this.timer = setInterval(this.updateDisplay, 10, this.time);
         }
         //update diplay to empty
-        $("#timer-instructions").empty();
+        //$("#timer").text(msToTime(this.solveTime));
+        $("#timer").removeClass('timer-waiting');
+        $("#timer").removeClass('timer-ready');
+
     }
 
     stop() {
         clearInterval(this.timer);
         this.solveTime = Date.now() - this.time;
         $('#timer').text(msToTime(this.solveTime));
+        
         this.running = false;
     }
     async checkWait(time){
@@ -33,7 +37,8 @@ class Stopwatch {
         if(msTime >= 500){
             console.log("READ"+this.readyToRun);
             //update diplay to GO
-            $("#timer-instructions").text("GO!");
+           // $("#timer").text("GO!");
+           $("#timer").addClass("timer-ready")
             clearInterval(this.timer);
             return true;
         }
@@ -44,7 +49,7 @@ class Stopwatch {
             this.waiting = true;
             console.log("not ready to run");
             //update display to wait
-            $("#timer-instructions").text("WAIT");
+            $("#timer").addClass("timer-waiting");
             this.time = Date.now();
             this.timer = setInterval( () => {
                 this.checkWait(this.time).then(validated =>{

@@ -14,13 +14,14 @@ class SessionModel {
     }
 
     addSolve(time) {
+        this.pastSolveID = Date.now();
         this.solveTimes.push(time);
         this.solveTimes.push(this.scramble);
         this.numSolves++;
         console.log(this.authentication.currentUser);
         if (this.authentication.currentUser) {
             console.log("logged in...posting solve")
-            let timeStamp = Date.now()
+            let timeStamp = this.pastSolveID;
             db.collection("users").doc(this.authentication.currentUser.uid).collection("solves")
                 .doc(timeStamp.toString(10)).set({
                     cube : this.puzzle,
@@ -35,6 +36,11 @@ class SessionModel {
 
         }
 
+    }
+    deleteSolve(solveID) { //solve id is Date.now()
+        if (auth.currentUser) {
+            db.collection("users").doc(auth.currentUser.uid).collection("solves").doc(solveID).delete();
+        }
     }
     getAverage() {
         let sum = 0; 
