@@ -46,7 +46,10 @@ $(function() {
     $("#login-button").on('click',event => {
         $("#modal-login").modal('show');
     });
-    
+    $("#session-button").on('click',event => {
+        console.log("new modal");
+        $("#session-modal").modal('show');
+    });
 
 
     $("#signup-submit").on('click', e => {
