@@ -64,6 +64,22 @@ $(function() {
         $li.hide("slow", function(){ $li.remove(); });
     });
 
+    $('#solve-history-table').on('click', 'tr', function(event) {
+        let id = $(event.target).closest('tr').attr('id').substring(3);
+
+        db.collection('users').doc(auth.currentUser.uid).collection('solves').doc(id).get().then(res => {
+            let solve = res.data();
+            console.log(solve);
+
+            $('#solve-info-modal .modal-title').text(solve.cube+" solve");
+            $('#solve-info-modal').modal('show');
+            $('#modal-solve-time').text(msToTime(solve.time));
+            $('#modal-scramble').text(solve.scramble)
+            $('#modal-date').text(formatDate(new Date(solve.timeStamp)));
+        });
+        
+    });
+
 
 
     $("#signup-submit").on('click', e => {
@@ -107,7 +123,6 @@ $(function() {
     $(document).on('keyup',function(e) {
         if(e.which == 32) {
             e.preventDefault();
-            console.log("HI");
             if (stopwatch.running) {
                 stopwatch.stop();
                 addTime(stopwatch.solveTime);
@@ -158,18 +173,28 @@ function addTime(time) {
     model.addSolve(time);
     let solveID = model.pastSolveID;
     $('#current-solves').append(renderSolve(time, solveID));
+    appendLastSolve();
     
 
 }
 function renderSolve(time, solveID) {
-    return `<li id="${"li-"+solveID}"> 
-        
-        <p>${$('#timer').text()} <span class="text-secondary">${$('#scramble').text()} </span> 
-        <a class="delete-solve-button" style="float:right; margin-right: 10px;">X</a>
+    return `
+    <div class="li-time">
+    <li id="${"li-"+solveID}"> 
+        <div>
+        <p>${$('#timer').text()}
+            
+                 <i class="far fa-trash-alt delete-solve-button"></i>
         </p>
+        <p class="text-secondary">${$('#scramble').text()}</p>
+            
+       
+        </div>
+        
         
     
-    </li>`;
+    </li>
+    </div>`;
 }
 function renderSolve1() {
     let html = `<div class="card">

@@ -5,6 +5,18 @@
 html {
     scroll-behavior: smooth;
   }
+.delete-solve-button:hover {
+    margin: auto;
+    color: red;
+}
+
+.select-puzzle-info {
+    margin-top: 2rem;
+}
+.li-time {
+    margin-left: 5px;
+    margin-right: 5px;
+}
 
 .card {
     height: 80%;
@@ -84,8 +96,13 @@ div.scroll-area {
     background-color: #4f5b60;
 }
 
+.table-wrapper {
+    height: 500px;
+    overflow-y: auto;
+}
 table {
     table-layout: fixed;
+   
 }
 
 td.scramble {

@@ -4,13 +4,12 @@ function populateSolveList(specifier) {
     let times;
     let solveCollection = db.collection('users').doc(auth.currentUser.uid).collection('solves')
     if(specifier === 'All' || specifier === ""){
-        times = solveCollection.get();
+        times = solveCollection.orderBy('timeStamp', 'desc').get();
     } else{
-        console.log(specifier);
-        times = solveCollection.where("cube","==",specifier).get();
+        times = solveCollection.where("cube","==",specifier).orderBy('timeStamp', 'desc').get();
     }
     times.then(r => {
-        console.log("forEach");
+        
         let i = 0;
         r.forEach(doc => {
             let entry = doc.data();
@@ -20,10 +19,26 @@ function populateSolveList(specifier) {
     }); 
 }
 
+function appendLastSolve() {
+    let solveCollection = db.collection('users').doc(auth.currentUser.uid).collection('solves');
+    let times = solveCollection.orderBy('timeStamp', 'desc').limit(1).get();
+    times.then(res => {
+            console.log(res);
+            res.forEach(doc => {
+                let solve = doc.data();
+                $('#solve-history').prepend(renderSolveEntry(solve));
+            })
+        });
+    
+    
+}
+
 function renderSolveEntry(solve, index) {
+    // <th scope="row">${index+1}</th>
     return `
-    <tr>
-    <th scope="row">${index+1}</th>
+    <tr id="${"tr-"+solve.timeStamp}">
+   
+    <th scope="row">${timeSince(solve.timeStamp)}</th>
     <td>${msToTime(solve.time)}</td>
     <td>${solve.cube}</td>
     <td class="scramble">${solve.scramble}</td>
@@ -31,3 +46,33 @@ function renderSolveEntry(solve, index) {
     
     `;
 }
+
+function timeSince(timeStamp) {
+    let date = new Date(timeStamp);
+    let seconds = Math.floor((new Date() - date) / 1000);
+  
+    let interval = Math.floor(seconds / 31536000);
+  
+    if (interval > 0) {
+      return interval + " years ago";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 0) {
+      return interval + " months ago";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 0) {
+      return interval + " days ago";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 0) {
+      return interval + " hours ago";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 0) {
+      return interval + " minutes ago";
+    }
+
+   
+    return Math.floor(seconds) + " seconds ago";
+  }

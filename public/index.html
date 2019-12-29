@@ -7,8 +7,9 @@
         <meta name="author" content="">
         <title>Cube Timer</title>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"> 
+   
         <link rel="stylesheet" href="src/css/style.css">
         
         <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -61,18 +62,21 @@
                           <a id="logout-button" class="logged-in nav-link" href="#"><i class="fa fa-sign-in-alt"></i> Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a id="nav-name" class="logged-in nav-link disabled" href="#">Welcome, </a>
+                            <a id="nav-name" class="logged-in nav-link disabled" href="#"></a>
                         </li>
                       </ul>
             </div>
         </nav>
 
-        <section> 
+        <section class="cube-select-section"> 
+          
                 <div class="container">
-                  <div class="text-center">
+                  <div class="text-center select-puzzle-info">
                       <h2>Select a Puzzle</h2>
                       <p class="text-muted">This will be used to generate scrambles</p>
                   </div>
+
+                  
                     
                     <div class="row">
                             <div id="4x4-button" class="stretched-link cube-types col-md-4 mb-5">
@@ -104,11 +108,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h2 id="scramble"></h2>
+                        
                         <h1 id="timer" class="display-1">00:00.000</h1>
+                      
+                        <h2 id="scramble"></h2>
                         <p class="text-muted">Press the spacebar to start the stopwatch</p>
                         <p class="text-muted">Wait until the clock turns <span style="color:greenyellow">green</span> to start solving</p>
-                        <h1 id="timer-instructions"></h1>
+                        
+                        
+                        <!-- <h1 id="timer-instructions"></h1> -->
                     </div>
                     <div class="col">
                         <div>
@@ -133,6 +141,8 @@
                 
             
             </div>
+            <hr>
+          </section>
 
 
         <div class="modal fade" id="modal-signup" style="display:none;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -222,7 +232,33 @@
                       </div>
                     </div>
 
-        <hr>
+
+                    <div id="solve-info-modal" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title"></h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              
+                              <div class='text-center'>
+                                <h2 id="modal-solve-time">00:00:00.123</h2>
+                                <p class="text-muted" id="modal-scramble">A B C</p>
+                                <p id="modal-date">12/29/2019 2:40am</p>
+                              </div>
+
+                        
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+        
         <section id="solves-section">
           <div class="container">
             <h1>Solves</h1>
@@ -240,26 +276,34 @@
                 <p class="pick-table nav-link" href="#">5x5</p>
               </li>
             </ul>
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Scramble</th>
-                </tr>
-              </thead>
-              <tbody id="solve-history">
+
+            <div class="table-wrapper">
+                <table 
+                id="solve-history-table"
+                class="table table-hover">
                 
-              </tbody>
-            </table>
+                    <thead>
+                      <tr>
+                        
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Scramble</th>
+                      </tr>
+                    </thead>
+                    <tbody id="solve-history">
+                      
+                    </tbody>
+                  </table>
+            </div>
+            
             
           </div>
 
         </section>
-      </section>
+      
       <!-- Footer -->
-<footer class="bg-primary page-footer text-white font-small bg-dark pt-4">
+<footer class="page-footer text-white font-small bg-dark pt-4">
 
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
@@ -274,6 +318,7 @@
         <script src="./node_modules/jquery/dist/jquery.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      
         <script src="src/js/scramblers/scramble_222.js"></script>
         <script src="src/js/scramblers/scramble_333.js"></script>
         <script src="src/js/scramblers/scramble_NNN.js"></script>
