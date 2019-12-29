@@ -26,7 +26,7 @@ function renderSolveEntry(solve, index) {
     <th scope="row">${index+1}</th>
     <td>${msToTime(solve.time)}</td>
     <td>${solve.cube}</td>
-    <td class="scramble">R U R' U' L R R R R R R R R R R R R</td>
+    <td class="scramble">${solve.scramble}</td>
   </tr>
     
     `;

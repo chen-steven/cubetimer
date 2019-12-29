@@ -11,7 +11,8 @@ class SessionModel {
     getScramble() {
         let size = this.puzzle.substring(0,1);
         size = size + size + size;
-        return scramblers[size].getRandomScramble().scramble_string
+        this.scramble = scramblers[size].getRandomScramble().scramble_string
+        return this.scramble
     }
 
     addSolve(time) {
@@ -19,7 +20,7 @@ class SessionModel {
         this.solveTimes.push(time);
         this.solveTimes.push(this.scramble);
         this.numSolves++;
-        console.log(this.authentication.currentUser);
+        console.log(this.scramble);
         if (this.authentication.currentUser) {
             console.log("logged in...posting solve")
             let timeStamp = this.pastSolveID;
@@ -55,6 +56,9 @@ class SessionModel {
     clearSession() {
         this.numSolves = 0;
         //clear solveTimes list
+    }
+    changeCubeType(cubeType){
+        model.puzzle = cubeType;
     }
 
 }

@@ -35,8 +35,8 @@ $(function() {
     });
     $(".cube-types").on('click',event =>{
         cubeType = event.target.textContent.trim();
-        model.puzzle = cubeType;
-        console.log(model.puzzle);
+        model.changeCubeType(cubeType);
+        newScramble();
     });
     $("#signup-button").on('click',event => {
         console.log("clicked");
@@ -115,7 +115,7 @@ $(function() {
     });
     $('#view-stats').on('click', showStatistics)
     
-
+    newScramble();
 });
 function userUpdate(user) {
     if (user) {
@@ -145,8 +145,6 @@ function showStatistics(event) {
 
 function newScramble() {
     let scramble = model.getScramble();
-    console.log(scramble);
-
     $('#scramble').text(scramble);
     
 }
