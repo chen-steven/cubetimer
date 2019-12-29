@@ -1,6 +1,11 @@
-#timer {
+/* #timer {
     font-size: 6em;
-}
+} */
+
+html {
+    scroll-behavior: smooth;
+  }
+
 .card {
     height: 80%;
     box-shadow: 0 9px 23px rgba(0, 0, 0, 0.09), 0 5px 5px rgba(0, 0, 0, 0.06) !important;
@@ -21,14 +26,18 @@
 
 /* Backgrounds */
 
-.bg-primary {
+.card.cube-button-active {
     color: #FFFFFF;
-    background-color: #07a7e3 !important;
+    background-color: #55d3f5 !important;
 }
 
-.bg-secondary {
+.cube-button {
     color: #FFFFFF;
     background-color: #4f5b60 !important;
+}
+.card:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    transform: scale(1.05);
 }
 
 .bg-success {
@@ -64,8 +73,8 @@
 }
 
 div.scroll-area {
-    max-height: 340px;
-    height: 340px;
+    max-height: 400px;
+    height: 400px;
     overflow-y: scroll;
     border-radius: 10px; 
 }
@@ -79,9 +88,19 @@ div.scroll-area {
     background-color: #4f5b60;
 }
 
+table {
+    table-layout: fixed;
+}
+
 td.scramble {
     /* overflow-x: scroll; */
-    max-width: 10px; 
+    display:block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: scroll;
+    overflow-y:hidden;
+
 }
 
 hr {
@@ -102,4 +121,21 @@ hr {
 
 .timer-ready {
     color: greenyellow;
+}
+
+.nav-item .active {
+    border-bottom: 3px solid #55d3f5;
+    color: #55d3f5;
+}
+
+.slide-in {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(0%); }
 }

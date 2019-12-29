@@ -31,11 +31,17 @@ $(function() {
     $(".pick-table").on('click',event =>{
         console.log("clicked" + event.target.textContent);
         let filter = event.target.textContent;
+        $(".pick-table").removeClass('active');
+        $(event.target).closest('.pick-table').addClass('active');
         populateSolveList(filter);
     });
     $(".cube-types").on('click',event =>{
         cubeType = event.target.textContent.trim();
         model.changeCubeType(cubeType);
+        $('.card').removeClass('cube-button-active');
+        
+        $(event.target).find('.card').addClass('cube-button-active');
+        console.log($(event.target).find('.card').attr('class'));
         newScramble();
     });
     $("#signup-button").on('click',event => {
@@ -53,10 +59,10 @@ $(function() {
     });
 
     $("#current-solves").on('click', '.delete-solve-button', null, function(e) {
-        console.log(e.target);
-        console.log($(e.target).closest('li').attr('id'));
+        let $li = $(e.target).closest('li');
         let solveID = $(e.target).closest('li').attr('id').substring(3);
         model.deleteSolve(solveID);
+        $li.hide("slow", function(){ $li.remove(); });
     });
 
 

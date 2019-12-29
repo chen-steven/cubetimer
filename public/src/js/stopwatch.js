@@ -35,7 +35,7 @@ class Stopwatch {
         let msTime = Date.now() - time;
         console.log(msTime);
         if(msTime >= 500){
-            console.log("READ"+this.readyToRun);
+        
             //update diplay to GO
            // $("#timer").text("GO!");
            $("#timer").addClass("timer-ready")
