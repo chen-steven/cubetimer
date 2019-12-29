@@ -41,7 +41,6 @@ $(function() {
         $('.card').removeClass('cube-button-active');
         
         $(event.target).find('.card').addClass('cube-button-active');
-        console.log($(event.target).find('.card').attr('class'));
         newScramble();
     });
     $("#signup-button").on('click',event => {

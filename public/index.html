@@ -22,7 +22,7 @@
         <script src="./node_modules/sr-scrambler/dist/index.js"></script> 
     </head>
     <body>
-        <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-fixed-top navbar-expand-lg bg-dark navbar-dark ">
             <a class="navbar-brand" href="#">
                 <i class="fa fa-cubes"></i>
                 Cube Timer</a>
@@ -69,7 +69,11 @@
 
         <section> 
                 <div class="container">
-                    <h2>Select a puzzle</h2>
+                  <div class="text-center">
+                      <h2>Select a Puzzle</h2>
+                      <p class="text-muted">This will be used to generate scrambles</p>
+                  </div>
+                    
                     <div class="row">
                             <div id="4x4-button" class="stretched-link cube-types col-md-4 mb-5">
                                     <div class="card cube-button-active cube-button mb-3 text-center">
@@ -103,6 +107,7 @@
                         <h2 id="scramble"></h2>
                         <h1 id="timer" class="display-1">00:00.000</h1>
                         <p class="text-muted">Press the spacebar to start the stopwatch</p>
+                        <p class="text-muted">Wait until the clock turns <span style="color:greenyellow">green</span> to start solving</p>
                         <h1 id="timer-instructions"></h1>
                     </div>
                     <div class="col">
