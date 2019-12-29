@@ -9,8 +9,9 @@ class SessionModel {
         this.authentication = authentication;
     }
     getScramble() {
-        this.scramble = "R U R' U' L";
-        return this.scramble;
+        let size = this.puzzle.substring(0,1);
+        size = size + size + size;
+        return scramblers[size].getRandomScramble().scramble_string
     }
 
     addSolve(time) {
