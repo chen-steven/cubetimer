@@ -1,6 +1,5 @@
 function populateSolveList(specifier) {
     $("#solve-history").empty();
-    console.log("populating: " + specifier)
     let times;
     let solveCollection = db.collection('users').doc(auth.currentUser.uid).collection('solves')
     if(specifier === 'All' || specifier === ""){

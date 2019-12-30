@@ -20,10 +20,11 @@ class SessionModel {
         this.solveTimes.push(time);
         this.solveTimes.push(this.scramble);
         this.numSolves++;
-        console.log(this.scramble);
+        //console.log(this.scramble);
         if (this.authentication.currentUser) {
-            console.log("logged in...posting solve")
+            //console.log("logged in...posting solve")
             let timeStamp = this.pastSolveID;
+            //get percentile
             db.collection("users").doc(this.authentication.currentUser.uid).collection("solves")
                 .doc(timeStamp.toString(10)).set({
                     cube : this.puzzle,
@@ -39,6 +40,15 @@ class SessionModel {
 
         }
 
+    }
+    getPercentile(time){
+        let percentile = db.collection("users").doc(this.authentication.currentUser.uid).collection("percentiles").doc(this.puzzle)
+        .get().then(doc =>{
+            let solveList = doc.data().recents;
+            let index = this.binarySearchGreater(solveList,time); 
+            return 100 * (index + 1)/solveList.length;
+        })
+        return percentile;
     }
     deleteSolve(solveID) { //solve id is Date.now() as a string
         if (auth.currentUser) {
@@ -60,5 +70,22 @@ class SessionModel {
     changeCubeType(cubeType){
         model.puzzle = cubeType;
     }
-
+    //returns the index of the last element that is greater than or equal to the target
+    //if all elements are smaller than the target, return -1;
+    binarySearchGreater(arr,target){  
+        let start = 0, end = arr.length-1;  
+        let index = -1;  
+        while (start <= end) {  
+            let mid = Math.floor((start + end) / 2);
+            //console.log(arr[mid]);
+            if (arr[mid] >= target) {
+                index = mid  
+                start = mid + 1;  
+            }
+            else {   
+                end = mid - 1;  
+            }
+        }
+        return index; 
+    }
 }

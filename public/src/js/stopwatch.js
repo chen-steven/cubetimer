@@ -33,7 +33,6 @@ class Stopwatch {
     }
     async checkWait(time){
         let msTime = Date.now() - time;
-        console.log(msTime);
         if(msTime >= 500){
         
             //update diplay to GO

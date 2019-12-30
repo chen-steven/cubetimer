@@ -21,7 +21,7 @@ $(function() {
     db = firebase.firestore();
     //update firestore settings
     auth.onAuthStateChanged(user =>{
-        console.log(user);
+        //console.log(user);
         userUpdate(user);
     });
     //userUpdate(auth.currentUser);
@@ -170,12 +170,15 @@ function newScramble() {
 }
 
 function addTime(time) {
+    model.getPercentile(time).then(percentile => {
+        console.log("awaited: " + percentile);
+        $("#percentile-display").text("Your solve was faster than " + percentile.toFixed(2) + "% of your previous solves on the " + model.puzzle);
+    });
+    
     model.addSolve(time);
     let solveID = model.pastSolveID;
     $('#current-solves').append(renderSolve(time, solveID));
     appendLastSolve();
-    
-
 }
 function renderSolve(time, solveID) {
     return `
