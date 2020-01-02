@@ -28,6 +28,8 @@ $(function() {
     model = new SessionModel(auth);
     stopwatch = new Stopwatch();
 
+    
+
     $(".pick-table").on('click',event =>{
         console.log("clicked" + event.target.textContent);
         let filter = event.target.textContent;
@@ -70,7 +72,8 @@ $(function() {
         db.collection('users').doc(auth.currentUser.uid).collection('solves').doc(id).get().then(res => {
             let solve = res.data();
             console.log(solve);
-
+            let urlParams = encodeURI("I just solved a " + solve.cube + " cube in " + msToTime(solve.time) + " using pascal timer. Check out Pascal Timer at www.pascaltimer.com! #cubing #felix #backupMainInnovations");
+            $('#twitter-link').attr("href","https://twitter.com/intent/tweet?text=" + urlParams);
             $('#solve-info-modal .modal-title').text(solve.cube+" solve");
             $('#solve-info-modal').modal('show');
             $('#modal-solve-time').text(msToTime(solve.time));
