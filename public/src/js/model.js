@@ -33,7 +33,6 @@ class SessionModel {
                     scramble: this.scramble
                 });
         } else {
-            console.log("logged out..get a fucking account man");
             //post to global times
             //post scramble
             //post date
@@ -44,9 +43,13 @@ class SessionModel {
     getPercentile(time){
         let percentile = db.collection("users").doc(this.authentication.currentUser.uid).collection("percentiles").doc(this.puzzle)
         .get().then(doc =>{
+            let docData = doc.data();
+            if(docData){
             let solveList = doc.data().recents;
             let index = this.binarySearchGreater(solveList,time); 
             return 100 * (index + 1)/solveList.length;
+            }
+            return -1;
         })
         return percentile;
     }

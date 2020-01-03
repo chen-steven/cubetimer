@@ -94,12 +94,7 @@ $(function() {
         console.log(email,password);
         auth.createUserWithEmailAndPassword(email,password).then(cred =>{
             console.log(cred.user);
-            return db.collection('users').doc(cred.user.uid).set({
-                uid: cred.user.uid,
-                name: name,
-                email: email,
-                solveTimes: []
-            })
+            addNewUserToDatabase(cred.user.uid,name,email);
         }).then(()=>{
         $("#modal-signup").modal("hide");
         $('#signup-form')[0].reset();
@@ -125,6 +120,7 @@ $(function() {
             var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
+            addNewUserToDatabase(result.user.uid,result.user.displayName.split(" ")[0],result.user.email);
             // ...
           }).catch(function(error) {
             // Handle Errors here.
@@ -196,8 +192,9 @@ function newScramble() {
 
 function addTime(time) {
     model.getPercentile(time).then(percentile => {
-        console.log("awaited: " + percentile);
+        if(percentile >= 0){
         $("#percentile-display").text("Your solve was faster than " + percentile.toFixed(2) + "% of your previous solves on the " + model.puzzle);
+        }
     });
     
     model.addSolve(time);
@@ -232,4 +229,12 @@ function renderSolve1() {
     </div>
   </div>`;
   return html;
+}
+function addNewUserToDatabase(uid, name, email){
+    return db.collection('users').doc(uid).set({
+        uid: uid,
+        name: name,
+        email: email,
+        solveTimes: []
+    })
 }
