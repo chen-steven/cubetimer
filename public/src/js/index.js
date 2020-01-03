@@ -33,6 +33,7 @@ $(function() {
     $(".pick-table").on('click',event =>{
         console.log("clicked" + event.target.textContent);
         let filter = event.target.textContent;
+        model.currentSpecifier = filter;
         $(".pick-table").removeClass('active');
         $(event.target).closest('.pick-table').addClass('active');
         populateSolveList(filter);
@@ -64,6 +65,7 @@ $(function() {
         let solveID = $(e.target).closest('li').attr('id').substring(3);
         model.deleteSolve(solveID);
         $li.hide("slow", function(){ $li.remove(); });
+        populateSolveList(model.currentSpecifier);
     });
 
     $('#solve-history-table').on('click', 'tr', function(event) {
@@ -76,6 +78,7 @@ $(function() {
             $('#twitter-link').attr("href","https://twitter.com/intent/tweet?text=" + urlParams);
             $('#solve-info-modal .modal-title').text(solve.cube+" solve");
             $('#solve-info-modal').modal('show');
+            $('#solve-info-modal').data('timeStamp', solve.timeStamp.toString());
             $('#modal-solve-time').text(msToTime(solve.time));
             $('#modal-scramble').text(solve.scramble)
             $('#modal-date').text(formatDate(new Date(solve.timeStamp)));
@@ -83,6 +86,16 @@ $(function() {
         
     });
 
+    $('.table-delete-button').on('click', function(e) {
+        
+    
+        let solveID = $('#solve-info-modal').data('timeStamp');
+    
+        model.deleteSolve(solveID);
+        $('#solve-info-modal').modal('hide');
+        populateSolveList(model.currentSpecifier);
+        
+    });
 
 
     $("#signup-submit").on('click', e => {
@@ -115,12 +128,14 @@ $(function() {
         e.preventDefault();
         var provider = new firebase.auth.GoogleAuthProvider();
         $('#modal-login').modal("hide");
-        auth.signInWithPopup(provider).then(function(result) {
+        auth.signInWithPopup(provider).then(async function(result) {
             // This gives you a Google Access Token. You can use it to access the Google API.
             var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
-            addNewUserToDatabase(result.user.uid,result.user.displayName.split(" ")[0],result.user.email);
+            
+            await addNewUserToDatabase(result.user.uid,result.user.displayName.split(" ")[0],result.user.email);
+            location.reload();
             // ...
           }).catch(function(error) {
             // Handle Errors here.
@@ -199,8 +214,13 @@ function addTime(time) {
     
     model.addSolve(time);
     let solveID = model.pastSolveID;
+    if(auth.currentUser) {
+        
+        populateSolveList(model.currentSpecifier);
+    }
+    
     $('#current-solves').append(renderSolve(time, solveID));
-    appendLastSolve();
+    //appendLastSolve();
 }
 function renderSolve(time, solveID) {
     return `
@@ -231,6 +251,7 @@ function renderSolve1() {
   return html;
 }
 function addNewUserToDatabase(uid, name, email){
+    console.log("aljsdfasdjfkd");
     return db.collection('users').doc(uid).set({
         uid: uid,
         name: name,

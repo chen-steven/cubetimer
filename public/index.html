@@ -53,17 +53,18 @@
                 </ul>
 
                 <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                          <a id="signup-button" class="logged-out nav-link" href="#"><span class="fa fa-user"></span> Sign Up</a>
-                        </li>
-                        <li class="nav-item">
+                        
+                        <!-- <li class="nav-item">
                           <a id="login-button" class="logged-out nav-link" href="#"><i class="fa fa-sign-in-alt"></i> Login</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                           <a id="logout-button" class="logged-in nav-link" href="#"><i class="fa fa-sign-in-alt"></i> Logout</a>
                         </li>
                         <li class="nav-item">
                             <a id="nav-name" class="logged-in nav-link disabled" href="#"></a>
+                        </li>
+                        <li>
+                            <img id="login-with-google" class="logged-out" src="./src/images/google2.png" height="46" width="191">
                         </li>
                       </ul>
             </div>
@@ -109,14 +110,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h2 id="percentile-display"></h2>
+                        
                         <h1 id="timer" class="display-1">00:00.000</h1>
                       
                         <h2 id="scramble"></h2>
                         <p class="text-muted">Press the spacebar to start the stopwatch</p>
                         <p class="text-muted">Wait until the clock turns <span style="color:greenyellow">green</span> to start solving</p>
                         
-                        
+                        <h2 id="percentile-display"></h2>
                         <!-- <h1 id="timer-instructions"></h1> -->
                     </div>
                     <div class="col">
@@ -190,7 +191,10 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          <form id="login-form">
+                      
+                          <img src="./src/images/google2.png" height="46" width="191" style="margin-bottom: 10px">
+                          
+                          <!-- <form id="login-form">
                             <div class="form-group">
                               <label for="recipient-name" class="col-form-label">Email:</label>
                               <input type="email" class="form-control" id="login-email">
@@ -201,11 +205,13 @@
                             </div>
 
                             <button id="login-with-google" class="btn btn-primary"><i class="fab fa-google"></i></button>
-                            <div class="modal-footer">
+                            
+                          </form> -->
+
+                          <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                               <button id="login-submit" type="button" class="btn btn-primary">Login</button>
                             </div>
-                          </form>
                         </div>
                       </div>
                     </div>
@@ -240,22 +246,28 @@
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title"></h5>
+                              <h5 class="modal-title"> </h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
-                              
+                                
                               <div class='text-center'>
                                 <h2 id="modal-solve-time">00:00:00.123</h2>
                                 <p class="text-muted" id="modal-scramble">A B C</p>
                                 <p id="modal-date">12/29/2019 2:40am</p>
+                                <button class="btn btn-danger table-delete-button">
+                                  <i class="far fa-trash-alt"></i>
+                                  Delete this solve</button>
                               </div>
+                              <hr>
                                   <a id="twitter-link" href="https://twitter.com/intent/tweet">
                                     <i class="btn-icon"></i>
                                     <span class="btn-text">Tweet</span>
                                   </a>
+
+                                  
                             </div>
                             <div class="modal-footer">
                               <div class="row">

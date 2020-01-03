@@ -6,6 +6,7 @@ class SessionModel {
         this.puzzle = "3x3";
         this.numSolves = 0;
         this.scramble = '';
+        this.currentSpecifier = 'All'
         this.authentication = authentication;
     }
     getScramble() {

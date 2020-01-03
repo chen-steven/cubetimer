@@ -5,7 +5,7 @@ function populateSolveList(specifier) {
     if(specifier === 'All' || specifier === ""){
         times = solveCollection.orderBy('timeStamp', 'desc').get();
     } else{
-        times = solveCollection.where("cube","==",specifier).orderBy('timeStamp', 'desc').get();
+        times = solveCollection.orderBy('timeStamp', 'desc').where("cube","==",specifier).get();
     }
     times.then(r => {
         
