@@ -78,9 +78,14 @@ $(function() {
     $("#current-solves").on('click', '.delete-solve-button', null, function(e) {
         let $li = $(e.target).closest('li');
         let solveID = $(e.target).closest('li').attr('id').substring(3);
+        
+        model.removeSessionSolve($li.index())
         model.deleteSolve(solveID);
         $li.hide("slow", function(){ $li.remove(); });
         populateSolveList(model.currentSpecifier);
+        $('#ao5').html('Average of 5: '+msToTime(model.getaoN(5)));
+        $('#ao12').html('Average of 12: '+msToTime(model.getaoN(12)));
+        $('#total-average').html('Total average: '+msToTime(model.getAverage()));
     });
 
     $('#solve-history-table').on('click', 'tr', function(event) {
@@ -139,6 +144,15 @@ $(function() {
         $('#login-form')[0].reset();
     });
 
+    $('#clear-session-button').on('click', function(event) {
+        model.clearSession();
+        $('#current-solves').empty();
+        $('#ao5').html('Average of 5: N/A');
+        $('#ao12').html('Average of 12: N/A');
+        $('#total-average').html('Total average: N/A');
+
+    });
+
     $('#login-with-google').on('click', e=> {
         e.preventDefault();
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -164,31 +178,40 @@ $(function() {
           });
     });
 
-   $(document).on('keypress', function(e) {
-       let hasFocus = document.activeElement == document.body;
-       if (e.which==32 && hasFocus){
-            e.preventDefault();
-            stopwatch.wait();
-       }
-   });
+    $('#timer').on('mousedown', timerPress);
+    $('#timer').on('mouseup', timerUp)
+
+   $(document).on('keypress', timerPress);
     
-    $(document).on('keyup',function(e) {
-        if(e.which == 32) {
-            e.preventDefault();
-            if (stopwatch.running) {
-                stopwatch.stop();
-                addTime(stopwatch.solveTime);
-                newScramble();
-            } else {
-                stopwatch.start();
-                
-            }
-        }
-    });
+    $(document).on('keyup', timerUp);
     $('#view-stats').on('click', showStatistics)
     
     newScramble();
 });
+function timerUp(e) {
+    
+    if(e.which == 32 || e.type=='mouseup') {
+        e.preventDefault();
+        if(!stopwatch.running) {
+            stopwatch.start();
+        }
+    }
+}
+function timerPress(e) {
+    let hasFocus = document.activeElement == document.body;
+    if ((e.which==32 && hasFocus) || e.type=='mousedown'){
+         e.preventDefault();
+         stopwatch.wait();
+
+         if (stopwatch.running) {
+             stopwatch.stop();
+             addTime(stopwatch.solveTime);
+             newScramble();
+         }
+    }
+
+
+}
 function userUpdate(user) {
     if (user) {
         $(".logged-out").addClass('d-none');
@@ -236,6 +259,10 @@ function addTime(time) {
     }
     
     $('#current-solves').append(renderSolve(time, solveID));
+    
+    $('#ao5').html('Average of 5: '+msToTime(model.getaoN(5)));
+    $('#ao12').html('Average of 12: '+msToTime(model.getaoN(12)));
+    $('#total-average').html('Total average: '+msToTime(model.getAverage()));
     //appendLastSolve();
 }
 function renderSolve(time, solveID) {

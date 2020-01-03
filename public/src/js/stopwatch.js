@@ -91,7 +91,9 @@ class Stopwatch {
 // }
 
 function msToTime(s) {
-    
+    if(!(typeof(s) == 'number')) {
+        return 'N/A';
+    }
     var ms = s % 1000;
     s = (s - ms) / 1000;
     var secs = s % 60;

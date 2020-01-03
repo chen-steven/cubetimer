@@ -17,9 +17,11 @@ class SessionModel {
     }
 
     addSolve(time) {
+        console.log(time);
         this.pastSolveID = Date.now();
         this.solveTimes.push(time);
-        this.solveTimes.push(this.scramble);
+        console.log(this.scramble);
+        this.scrambles.push(this.scramble);
         this.numSolves++;
         //console.log(this.scramble);
         if (this.authentication.currentUser) {
@@ -54,22 +56,65 @@ class SessionModel {
         })
         return percentile;
     }
+
+    removeSessionSolve(index) {
+        this.solveTimes.splice(index,1);
+        this.scrambles.splice(index,1);
+    }
     deleteSolve(solveID) { //solve id is Date.now() as a string
+
         if (auth.currentUser) {
             db.collection("users").doc(auth.currentUser.uid).collection("solves").doc(solveID).delete();
         }
     }
     getAverage() {
+        if (this.solveTimes.length < 1) {
+            return 0;
+        }
         let sum = 0; 
         for (let i = 0; i<this.solveTimes.length; i++) {
             sum+=this.solveTimes[i];
+            
         }
-        console.log(sum/this.numSolves);
+        return Math.floor(sum/this.solveTimes.length);
     }
+
+    
+
+    getaoN(n) {
+        
+        if (this.solveTimes.length >=n) {
+            let sum = 0;
+            let min = this.solveTimes[0];
+            let max = this.solveTimes[0];
+            for(let i = this.solveTimes.length - n; i<this.solveTimes.length; i++){
+
+                let time = this.solveTimes[i];
+                console.log(time);
+
+                sum += time;
+                if (time < min) {
+                    min = time;
+                } 
+
+                if (time > max) {
+                    max = time;
+                }
+            }
+
+            return Math.floor((sum-min-max)/n-2);
+        }
+        return "N/A";
+    }
+
+
 
     clearSession() {
         this.numSolves = 0;
         //clear solveTimes list
+        this.solveTimes = [];
+        this.scrambles = [];
+
     }
     changeCubeType(cubeType){
         model.puzzle = cubeType;
