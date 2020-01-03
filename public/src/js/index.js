@@ -60,6 +60,21 @@ $(function() {
         $("#modal-login").modal('show');
     });
 
+
+    $('#comment-button').on('click',event =>{
+        $('#comment-modal').modal('show');
+    })
+    $('#review-submit').on('click',event =>{
+        let reviewText = $('#review-content').val();
+        db.collection('reviews').doc(Date.now().toString()).set({
+            text: reviewText
+            }).then(()=>{
+            $("#comment-modal").modal("hide");
+            $('#review-form')[0].reset();
+            });
+    });
+
+
     $("#current-solves").on('click', '.delete-solve-button', null, function(e) {
         let $li = $(e.target).closest('li');
         let solveID = $(e.target).closest('li').attr('id').substring(3);
@@ -150,9 +165,10 @@ $(function() {
     });
 
    $(document).on('keypress', function(e) {
-       if (e.which==32) {
-           e.preventDefault();
-           stopwatch.wait();
+       let hasFocus = document.activeElement == document.body;
+       if (e.which==32 && hasFocus){
+            e.preventDefault();
+            stopwatch.wait();
        }
    });
     

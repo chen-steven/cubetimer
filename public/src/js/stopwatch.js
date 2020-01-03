@@ -10,7 +10,7 @@ class Stopwatch {
     start() {
         clearInterval(this.timer);
         this.waiting = false;
-        console.log(this.readyToRun);
+        //console.log(this.readyToRun);
         if(this.readyToRun){
             this.running = true;
             this.readyToRun = false;
@@ -46,7 +46,7 @@ class Stopwatch {
     wait(){
         if(!this.waiting && !this.running){
             this.waiting = true;
-            console.log("not ready to run");
+            //console.log("not ready to run");
             //update display to wait
             $("#timer").addClass("timer-waiting");
             this.time = Date.now();

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Cube Timer</title>
+        <title>Pascal Timer</title>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"> 
@@ -27,7 +27,7 @@
         <nav class="navbar fixed-top navbar-expand-lg bg-dark navbar-dark ">
             <a class="navbar-brand" href="#">
                 <i class="fa fa-cubes"></i>
-                Cube Timer</a>
+                Pascal Timer</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,7 +53,10 @@
                 </ul>
 
                 <ul class="nav navbar-nav ml-auto">
-                        
+                        <li class="nav-item">
+                          <a id="comment-button" class="nav-link" href="#">Leave a Comment</a>
+                        </li>    
+
                         <!-- <li class="nav-item">
                           <a id="login-button" class="logged-out nav-link" href="#"><i class="fa fa-sign-in-alt"></i> Login</a>
                         </li> -->
@@ -145,7 +148,30 @@
             </div>
             <hr>
           </section>
-
+          <div class="modal fade" id="comment-modal" style="display:none;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" >We value your Feedback!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id = "review-form">
+                      <div class="form-group">
+                          <label for="review-content">Please enter your thoughts about Pascal Timer, and the developers will take your opinions into consideration</label>
+                          <textarea class="form-control rounded-0" rows="10" id="review-content" rows="10"></textarea>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button id = "review-submit" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
         <div class="modal fade" id="modal-signup" style="display:none;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -331,7 +357,7 @@
   
     <!-- Copyright -->
     <div class="col pb-4">
-    <div class="footer-copyright text-center ">Copyright &copy 2019 backupMain Innovations. All rights reserved. Wrecker donations do not constitute endorsement. Emotes are a form of cyber bullying and are subject to sanctians pursuant to our terms of use. backupMain innovations is not liable for the loss or damage of any SD cards as a result of the use of this site.</div>
+    <div class="footer-copyright text-center ">Copyright &copy 2019 backupMain Innovations. All rights reserved. backupMain innovations is not liable for the loss or damage of any SD cards as a result of the use of this site.</div>
     </div>
     </div>
   
