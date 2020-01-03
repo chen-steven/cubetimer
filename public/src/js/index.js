@@ -178,8 +178,8 @@ $(function() {
           });
     });
 
-    $('#timer').on('mousedown', timerPress);
-    $('#timer').on('mouseup', timerUp)
+    $('#timer').on('touchstart', timerPress);
+    $('#timer').on('touchend', timerUp)
 
    $(document).on('keypress', timerPress);
     
@@ -190,7 +190,7 @@ $(function() {
 });
 function timerUp(e) {
     
-    if(e.which == 32 || e.type=='mouseup') {
+    if(e.which == 32 || e.type=='touchend') {
         e.preventDefault();
         if(!stopwatch.running) {
             stopwatch.start();
@@ -199,7 +199,7 @@ function timerUp(e) {
 }
 function timerPress(e) {
     let hasFocus = document.activeElement == document.body;
-    if ((e.which==32 && hasFocus) || e.type=='mousedown'){
+    if ((e.which==32 && hasFocus) || e.type=='touchstart'){
          e.preventDefault();
          stopwatch.wait();
 
